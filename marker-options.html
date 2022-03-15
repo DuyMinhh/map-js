@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Demo Marker Option</title>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD57PRHJQSQ5XQOuNtAWpRBOP-UCX5pSzA&sensor=false"></script>
+	<script type ="text/javascript">
+	    var map;
+	    function initialize() {
+	        var latlng = new google.maps.LatLng(-34.397, 150.644);
+	        var myOptions = {
+	            zoom: 8,
+	            center: latlng,
+	            mapTypeId: google.maps.MapTypeId.ROADMAP
+	        };
+	        map = new google.maps.Map(document.getElementById("map"), myOptions);
+	        var marker = new google.maps.Marker
+	        (
+	            {
+	                position: new google.maps.LatLng(-34.397, 150.644),
+	                map: map,
+	                title: 'Click me'
+	            }
+	        );
+	        var infowindow = new google.maps.InfoWindow({
+	            content: 'Location info:<br/>Country Name:<br/>LatLng:'
+	        });
+	        google.maps.event.addListener(marker, 'click', function () {
+	            // Calling the open method of the infoWindow 
+	            infowindow.open(map, marker);
+	        });
+	    }
+	    window.onload = initialize;
+	</script>
+</head>
+<body>
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<h2>Google Map Marker Options Demo</h2>
+			<div class="panel panel-default">
+  				<div class="panel-heading">Google Map Marker Options Demo</div>
+  				<div class="panel-body"><div id ="map" style="height: 430px; width: 100%;"></div></div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

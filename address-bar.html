@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Demo Address Bar</title>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD57PRHJQSQ5XQOuNtAWpRBOP-UCX5pSzA&sensor=false"></script>
+	<script language="javascript" type="text/javascript">
+		var directionsDisplay;
+		var directionsService = new google.maps.DirectionsService();
+
+		function InitializeMap() {
+			directionsDisplay = new google.maps.DirectionsRenderer();
+			var latlng = new google.maps.LatLng(-34.397, 150.644);
+			var myOptions =
+			{
+				zoom: 8,
+				center: latlng,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			};
+			var map = new google.maps.Map(document.getElementById("map"), myOptions);
+
+			directionsDisplay.setMap(map);
+			directionsDisplay.setPanel(document.getElementById('directionpanel'));
+
+			var control = document.getElementById('control');
+			control.style.display = 'block';
+		}
+
+
+
+		function calcRoute() {
+			var start = document.getElementById('startvalue').value;
+			var end = document.getElementById('endvalue').value;
+			var request = {
+				origin: start,
+				destination: end,
+				travelMode: google.maps.DirectionsTravelMode.DRIVING
+			};
+			directionsService.route(request, function (response, status) {
+				if (status == google.maps.DirectionsStatus.OK) {
+					directionsDisplay.setDirections(response);
+				}
+			});
+		}
+
+		function Button1_onclick() {
+			calcRoute();
+		}
+
+		window.onload = InitializeMap;
+	</script>
+</head>
+<body>
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1">
+			<h2>Google Map Address Bar Demo</h2>
+			<div class="panel panel-default">
+  				<div class="panel-heading">Google Map Address Bar Demo</div>
+  				<div id="control" class="panel-body">
+  					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label>From:</label>
+								<input id="startvalue" class="form-control" type="text" />
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+	  							<label>To:</label>
+	  							<input id="endvalue" class="form-control" type="text" />
+	  						</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12"><input id="Button1" class="btn btn-primary" type="button" value="Get Directions" onclick="return Button1_onclick()" /></div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+		  						<div class="row">
+		  							<div class="col-md-8">
+		  								<div id ="directionpanel" style="height: 330px; overflow: auto" ></div>
+		  							</div>
+		  							<div class="col-md-4">
+		  								<div id ="map" style="height: 330px; width: 100%"></div>
+		  							</div>
+		  						</div>
+		  					</div>
+						</div>
+					</div>
+  				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
